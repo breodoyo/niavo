@@ -2,7 +2,7 @@
 
 > **Turn intention into execution.**
 
-Niavo is an execution platform that helps organizations manage work from request to completion. It provides a simple and flexible way to organize tasks, assign responsibilities, and track progress across teams.
+Niavo is an execution platform that helps organizations manage work from request to completion. It enables teams to organize, assign, and track work through customizable workflows, replacing scattered spreadsheets, emails, and chat messages with a single source of truth.
 
 ---
 
@@ -11,7 +11,7 @@ Niavo is an execution platform that helps organizations manage work from request
 - User Authentication
 - Organizations
 - Work Items
-- Workflows
+- Workflow Management
 - Dashboard
 - REST API
 
@@ -36,14 +36,17 @@ Niavo is an execution platform that helps organizations manage work from request
 
 ## Project Structure
 
-```
+```text
 niavo/
-├── api/
-├── backend/
-├── deployments/
-├── docs/
-├── frontend/
-├── tests/
+├── .github/         # GitHub Actions workflows
+├── api/             # OpenAPI specification
+├── backend/         # Go backend
+├── deployments/     # Deployment configuration
+├── docs/            # Project documentation
+├── frontend/        # React frontend
+├── tests/           # Integration and E2E tests
+├── .env.example
+├── docker-compose.yml
 └── README.md
 ```
 
@@ -53,14 +56,10 @@ niavo/
 
 ### Prerequisites
 
-Install:
-
 - Go 1.22+
 - Node.js 20+
 - PostgreSQL
 - Docker (optional)
-
----
 
 ### Clone the Repository
 
@@ -68,8 +67,6 @@ Install:
 git clone git@github.com:breodoyo/niavo.git
 cd niavo
 ```
-
----
 
 ### Backend
 
@@ -79,14 +76,6 @@ go mod tidy
 go run cmd/server/main.go
 ```
 
-The backend will be available at:
-
-```
-http://localhost:8080
-```
-
----
-
 ### Frontend
 
 ```bash
@@ -95,15 +84,7 @@ npm install
 npm run dev
 ```
 
-The frontend will be available at:
-
-```
-http://localhost:5173
-```
-
----
-
-### Using Docker
+### Docker
 
 ```bash
 docker compose up --build
@@ -113,24 +94,11 @@ docker compose up --build
 
 ## Documentation
 
-Project documentation can be found in the `docs/` directory:
-
-- `vision.md`
-- `prd.md`
-- `architecture.md`
-
----
-
-## Development Status
-
-🚧 MVP under active development.
-
-Current focus:
-
-- Authentication
-- Organizations
-- Work Items
-- Workflows
+| Document | Description |
+|----------|-------------|
+| `vision.md` | Product vision and mission |
+| `prd.md` | Product requirements document |
+| `architecture.md` | Technical architecture |
 
 ---
 
@@ -143,7 +111,7 @@ Current focus:
 - Workflow Management
 - Automation
 - AI Assistance
-- Third-party Integrations
+- Integrations
 
 ---
 
@@ -151,10 +119,10 @@ Current focus:
 
 **Brender Odoyo**
 
-- GitHub: https://github.com/breodoyo
+GitHub: https://github.com/breodoyo
 
 ---
 
 ## License
 
-This project is licensed under the MIT License.
+Licensed under the MIT License.
