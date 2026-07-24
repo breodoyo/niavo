@@ -13,9 +13,14 @@ import (
 func main() {
 	cfg := config.Load()
 
-	r := router.New()
+	log.Printf(
+		"%s (%s) listening on %s", 
+		cfg.AppName,
+		cfg.Env,
+		cfg.Port,
+	)
 
-	log.Printf("Niavo API listening on %s", cfg.Port)
+	r := router.New()
 
 	if err := http.ListenAndServe(cfg.Port, r); err != nil {
 		log.Fatal(err)
