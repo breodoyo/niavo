@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: niavo_postgres
+    environment:
+      POSTGRES_USER: niavo
+      POSTGRES_PASSWORD: niavo_password
+      POSTGRES_DB: niavo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:          
