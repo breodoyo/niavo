@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/breodoyo/niavo/backend/internal/user"
 	"github.com/breodoyo/niavo/backend/internal/middleware"
 	"github.com/breodoyo/niavo/backend/internal/app"
 	"github.com/go-chi/chi/v5"
@@ -20,10 +21,8 @@ func New() *chi.Mux {
 		r.Route("/v1", func(r chi.Router) {
 
 			r.Get("/", app.HomeHandler)
+			r.Get("/users", user.ListUsers)
 
-			r.Route("/users", func(r chi.Router) {
-
-			})
 			r.Route("/organizations", func(r chi.Router) {
 
 			})
