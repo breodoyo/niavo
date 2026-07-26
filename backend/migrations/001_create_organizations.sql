@@ -1,0 +1,5 @@
+CREATE TABLE organizations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NUL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
