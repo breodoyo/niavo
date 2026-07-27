@@ -7,13 +7,15 @@ import (
 )
 
 type Config struct {
-	AppName		string
-	Port 		string
-	Env	 		string
+	AppName     string
+	Port        string
+	Env         string
+	DatabaseURL string
 }
-//Load returns the application configuration
+
+// Load returns the application configuration
 func Load() Config {
-	_= godotenv.Load()
+	_ = godotenv.Load()
 
 	port := os.Getenv("PORT")
 
@@ -28,10 +30,12 @@ func Load() Config {
 	if env == "" {
 		env = "development"
 	}
+	databaseUrl := os.Getenv("DATABASE_URL")
 
 	return Config{
-		AppName: appName,
-		Env:	 env,		
-		Port: ":" + port,
+		AppName:     appName,
+		Env:         env,
+		Port:        ":" + port,
+		DatabaseURL: databaseUrl,
 	}
 }
