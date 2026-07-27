@@ -5,16 +5,21 @@ import (
 	"net/http"
 
 	"github.com/breodoyo/niavo/backend/internal/config"
+	"github.com/breodoyo/niavo/backend/internal/database"
 	"github.com/breodoyo/niavo/backend/internal/router"
-	
-	
 )
 
 func main() {
 	cfg := config.Load()
 
+	db, err := database.NewPool(cfg.DatabaseURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
 	log.Printf(
-		"%s (%s) listening on %s", 
+		"%s (%s) listening on %s",
 		cfg.AppName,
 		cfg.Env,
 		cfg.Port,
