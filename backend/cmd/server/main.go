@@ -6,6 +6,7 @@ import (
 
 	"github.com/breodoyo/niavo/backend/internal/config"
 	"github.com/breodoyo/niavo/backend/internal/database"
+	"github.com/breodoyo/niavo/backend/internal/organization"
 	"github.com/breodoyo/niavo/backend/internal/router"
 )
 
@@ -24,8 +25,11 @@ func main() {
 		cfg.Env,
 		cfg.Port,
 	)
+	repo := organization.NewRepository(db)
+	service := organization.NewService(repo)
+	handler := organization.NewHandler(service)
 
-	r := router.New()
+	r := router.New(handler)
 
 	if err := http.ListenAndServe(cfg.Port, r); err != nil {
 		log.Fatal(err)
