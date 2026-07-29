@@ -34,3 +34,17 @@ func (h *Handler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to encode response", http.StatusInternalServerError)
 	}
 }
+func (h *Handler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
+
+	organizations, err := h.service.ListOrganizations(r.Context())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(organizations); err != nil {
+		http.Error(w, "failed to encode response", http.StatusInternalServerError)
+	}
+}

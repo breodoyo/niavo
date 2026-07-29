@@ -41,3 +41,38 @@ func (r *Repository) CreateOrganization(
 	}
 	return org, nil
 }
+func (r *Repository) ListOrganizations(
+	ctx context.Context,
+) ([]Organization, error) {
+	query := `
+	SELECT id, name, slug, created_at
+	FROM organizations
+	ORDER BY created_at DESC
+	`
+
+	rows, err := r.db.Query(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	organizations := []Organization{}
+
+	for rows.Next() {
+		var org Organization
+
+		err := rows.Scan(
+			&org.ID,
+			&org.Name,
+			&org.Slug,
+			&org.CreatedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		organizations = append(organizations, org)
+	}
+
+	return organizations, nil
+}

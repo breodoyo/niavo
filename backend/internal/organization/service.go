@@ -26,3 +26,8 @@ func (s *Service) CreateOrganization(
 	}
 	return s.repo.CreateOrganization(ctx, org)
 }
+func (s *Service) ListOrganizations(
+	ctx context.Context,
+) ([]Organization, error) {
+	return s.repo.ListOrganizations(ctx)
+}
