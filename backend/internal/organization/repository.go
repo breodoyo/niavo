@@ -73,6 +73,34 @@ func (r *Repository) ListOrganizations(
 
 		organizations = append(organizations, org)
 	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
 
 	return organizations, nil
+}
+func (r *Repository) GetOrganization(
+	ctx context.Context,
+	id string,
+) (Organization, error) {
+	query := `
+	SELECT id, name, slug, created_at
+    FROM organizations
+	WHERE id = $1;
+`
+	var org Organization
+	err := r.db.QueryRow(
+		ctx,
+		query,
+		id,
+	).Scan(
+		&org.ID,
+		&org.Name,
+		&org.Slug,
+		&org.CreatedAt,
+	)
+	if err != nil {
+		return Organization{}, err
+	}
+	return org, nil
 }

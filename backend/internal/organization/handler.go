@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type Handler struct {
@@ -45,6 +47,21 @@ func (h *Handler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(organizations); err != nil {
+		http.Error(w, "failed to encode response", http.StatusInternalServerError)
+	}
+}
+func (h *Handler) GetOrganization(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	org, err := h.service.GetOrganization(r.Context(), id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(org); err != nil {
 		http.Error(w, "failed to encode response", http.StatusInternalServerError)
 	}
 }

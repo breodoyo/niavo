@@ -31,3 +31,9 @@ func (s *Service) ListOrganizations(
 ) ([]Organization, error) {
 	return s.repo.ListOrganizations(ctx)
 }
+func (s *Service) GetOrganization(
+	ctx context.Context,
+	id string,
+) (Organization, error) {
+	return s.repo.GetOrganization(ctx, id)
+}

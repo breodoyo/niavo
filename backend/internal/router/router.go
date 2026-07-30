@@ -27,6 +27,7 @@ func New(orgHandler *organization.Handler) *chi.Mux {
 			r.Route("/organizations", func(r chi.Router) {
 				r.Post("/", orgHandler.CreateOrganization)
 				r.Get("/", orgHandler.ListOrganizations)
+				r.Get("/{id}", orgHandler.GetOrganization)
 			})
 			r.Route("/workflows", func(r chi.Router) {
 
