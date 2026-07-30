@@ -104,3 +104,27 @@ func (r *Repository) GetOrganization(
 	}
 	return org, nil
 }
+func (r *Repository) UpdateOrganization(
+	ctx context.Context,
+	id string,
+	name string,
+) (Organization, error) {
+	query := `
+	UPDATE organizations
+	SET names = $1, updated_at = now
+	WHERE id = $2
+	RETURNING id, name, slug, created_at, updated_at
+	`
+	var org Organization
+	err := r.db.QueryRow(ctx, query, name, id).Scan(
+		&org.ID,
+		&org.Name,
+		&org.Slug,
+		&org.CreatedAt,
+		&org.UpdatedAt,
+	)
+	if err != nil {
+		return Organization{}, err
+	}
+	return org, nil
+}

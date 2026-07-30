@@ -37,3 +37,13 @@ func (s *Service) GetOrganization(
 ) (Organization, error) {
 	return s.repo.GetOrganization(ctx, id)
 }
+func (s *Service) UpdateOrganization(
+	ctx context.Context,
+	id string,
+	name string,
+) (Organization, error) {
+	if name == "" {
+		return Organization{}, ErrInvalidName
+	}
+	return s.repo.UpdateOrganization(ctx, id, name)
+}
