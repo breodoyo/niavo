@@ -111,7 +111,7 @@ func (r *Repository) UpdateOrganization(
 ) (Organization, error) {
 	query := `
 	UPDATE organizations
-	SET names = $1, updated_at = now
+	SET name = $1, updated_at = now()
 	WHERE id = $2
 	RETURNING id, name, slug, created_at, updated_at
 	`
@@ -127,4 +127,22 @@ func (r *Repository) UpdateOrganization(
 		return Organization{}, err
 	}
 	return org, nil
+}
+func (r *Repository) DeleteOrganization(
+	ctx context.Context,
+	id string,
+) error {
+	query := `
+	UPDATE organization
+	SET deleted_at = now()
+	WHERE id = $1 AND deleted_at IS NULL
+	`
+	tag, err := r.db.Exec(ctx, query, id)
+	if err != nil {
+		return err
+	}
+	if tag.RowsAffected() == 0 {
+		return ErrOrganizationNotFound
+	}
+	return nil
 }

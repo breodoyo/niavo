@@ -47,3 +47,9 @@ func (s *Service) UpdateOrganization(
 	}
 	return s.repo.UpdateOrganization(ctx, id, name)
 }
+func (s *Service) DeleteOrganization(
+	ctx context.Context,
+	id string,
+) error {
+	return s.repo.DeleteOrganization(ctx, id)
+}
