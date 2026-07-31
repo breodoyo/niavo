@@ -9,10 +9,10 @@ import (
 )
 
 type Handler struct {
-	service *Service
+	service OrganizationService
 }
 
-func NewHandler(service *Service) *Handler {
+func NewHandler(service OrganizationService) *Handler {
 	return &Handler{
 		service: service,
 	}
@@ -133,6 +133,16 @@ func (h *Handler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
 			http.StatusBadRequest,
 			"invalid_request",
 			"invalid request body",
+		)
+		return
+	}
+
+	if err := req.Validate(); err != nil {
+		common.WriteError(
+			w,
+			http.StatusBadRequest,
+			"validation_error",
+			err.Error(),
 		)
 		return
 	}
