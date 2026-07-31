@@ -8,9 +8,7 @@ import (
 )
 
 func TestCreateOrganization_InvalidRequest(t *testing.T) {
-	handler := &Handler{
-		service: nil,
-	}
+	handler := NewHandler(&MockOrganizationService{})
 
 	body := []byte(`{
 		"name": "",
@@ -25,15 +23,43 @@ func TestCreateOrganization_InvalidRequest(t *testing.T) {
 
 	req.Header.Set("Content-Type", "application/json")
 
-	recorder := httptest.NewRecorder()
+	rec := httptest.NewRecorder()
 
-	handler.CreateOrganization(recorder, req)
+	handler.CreateOrganization(rec, req)
 
-	if recorder.Code != http.StatusBadRequest {
+	if rec.Code != http.StatusBadRequest {
 		t.Errorf(
 			"expected status %d, got %d",
 			http.StatusBadRequest,
-			recorder.Code,
+			rec.Code,
+		)
+	}
+}
+func TestCreateOrganization_Success(t *testing.T) {
+	handler := NewHandler(&MockOrganizationService{})
+
+	body := []byte(`{
+		"name": "Niavo",
+		"slug": "niavo"
+	}`)
+
+	req := httptest.NewRequest(
+		http.MethodPost,
+		"/organizations",
+		bytes.NewBuffer(body),
+	)
+
+	req.Header.Set("Content-Type", "application/json")
+
+	rec := httptest.NewRecorder()
+
+	handler.CreateOrganization(rec, req)
+
+	if rec.Code != http.StatusCreated {
+		t.Errorf(
+			"expected status %d, got %d",
+			http.StatusCreated,
+			rec.Code,
 		)
 	}
 }
