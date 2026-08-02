@@ -9,7 +9,7 @@ import (
 )
 
 // New creates and configures the application's router.
-func New(orgHandler *organization.Handler) *chi.Mux {
+func New(orgHandler *organization.Handler, userHandler *user.Handler) *chi.Mux {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
@@ -22,7 +22,12 @@ func New(orgHandler *organization.Handler) *chi.Mux {
 		r.Route("/v1", func(r chi.Router) {
 
 			r.Get("/", app.HomeHandler)
-			r.Get("/users", user.ListUsers)
+
+			r.Route("/users", func(r chi.Router) {
+				r.Post("/", userHandler.CreateUser)
+				r.Get("/", userHandler.ListUsers)
+				r.Get("/{id}", userHandler.GetUser)
+			})
 
 			r.Route("/organizations", func(r chi.Router) {
 				r.Post("/", orgHandler.CreateOrganization)

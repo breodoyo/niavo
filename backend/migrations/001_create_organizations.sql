@@ -7,3 +7,4 @@ CREATE TABLE organizations (
 ALTER TABLE organizations
 	ADD COLUMN updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 	ADD COLUMN deleted_at TIMESTAMPTZ;
+
