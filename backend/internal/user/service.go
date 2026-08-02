@@ -2,7 +2,9 @@ package user
 
 import (
 	"context"
+	"errors"
 
+	"github.com/jackc/pgx/v5/pgconn"
 	"golang.org/x/crypto/bcrypt"
 )
 type UserService struct {
@@ -26,7 +28,15 @@ func (s *UserService) CreateUser(ctx context.Context, req CreateUserRequest) (Us
 		LastName: req.LastName,
 		PasswordHash: string(hashedPassword),
 	}
-	return s.repo.CreateUser(ctx, user)
+	created, err := s.repo.CreateUser(ctx, user)
+	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) && pgErr.Code == "23505" {
+			return User{}, ErrEmailAreadyExists
+		}
+		return User{}, err
+	}
+	return created, nil
 }
 func (s *UserService) ListUsers(ctx context.Context) ([]User, error) {
 	return s.repo.ListUsers(ctx)
