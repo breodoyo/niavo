@@ -18,3 +18,10 @@ func (m *MockUserService) GetUser(ctx context.Context, id string) (User, error) 
 		LastName: "Luis",
 	}, nil
 }
+func (m *MockUserService) UpdateUser(ctx context.Context, id string, req UpdateUserRequest) (User, error) {
+    return User{}, nil
+}
+
+func (m *MockUserService) DeleteUser(ctx context.Context, id string) error {
+    return nil
+}

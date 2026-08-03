@@ -33,3 +33,17 @@ func (r CreateUserRequest) Validate() error {
 	}
 	return nil
 }
+type UpdateUserRequest struct {
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
+
+func (r UpdateUserRequest) Validate() error {
+	if strings.TrimSpace(r.FirstName) == "" {
+		return errors.New("first name is required")
+	}
+	if strings.TrimSpace(r.LastName) == "" {
+		return errors.New("last name is required")
+	}
+	return nil
+}

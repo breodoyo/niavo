@@ -76,3 +76,66 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		common.WriteError(w, http.StatusInternalServerError, "internal_error", "failed to encode response")
 	}
 }
+func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	var req UpdateUserRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		common.WriteError(
+			w,
+			http.StatusBadRequest,
+			"invalid_request",
+			"invalid request body",
+		)
+		return
+	}
+
+	if err := req.Validate(); err != nil {
+		common.WriteError(
+			w,
+			http.StatusBadRequest,
+			"validation_error",
+			err.Error(),
+		)
+		return
+	}
+
+	updatedUser, err := h.service.UpdateUser(r.Context(), id, req)
+	if err != nil {
+		common.WriteError(
+			w,
+			http.StatusBadRequest,
+			"validation_error",
+			err.Error(),
+		)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(updatedUser); err != nil {
+		common.WriteError(
+			w,
+			http.StatusInternalServerError,
+			"internal_error",
+			"failed to encode response",
+		)
+	}
+}
+func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	if err := h.service.DeleteUser(r.Context(), id); err != nil {
+		common.WriteError(
+			w,
+			http.StatusNotFound,
+			"not_found",
+			"user not found",
+		)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}

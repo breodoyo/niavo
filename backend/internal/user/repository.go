@@ -111,3 +111,50 @@ func (r *Repository) GetUser(
 	}
 	return u, nil
 }
+func (r *Repository) UpdateUser(
+	ctx context.Context,
+	id string,
+	u User,
+) (User, error) {
+	query := `
+	UPDATE users
+	SET first_name = $1, last_name = $2, updated_at = now()
+	WHERE id = $3
+	RETURNING id, email, first_name, last_name, password_hash, created_at, updated_at
+	`
+	err := r.db.QueryRow(
+		ctx,
+		query,
+		u.Email,
+		u.FirstName,
+		u.LastName,
+		
+	).Scan(
+		&u.ID,
+		&u.Email,
+		&u.FirstName,
+		&u.LastName,
+		&u.CreatedAt,
+		&u.UpdatedAt,
+	)
+	if err != nil {
+		return User{}, err
+	}
+	return u, nil
+}
+func (r *Repository) DeleteUser(
+	ctx context.Context,
+	id string,
+) error {
+	query := `
+	DELETE FROM users WHERE id = $1
+	`
+	tag, err := r.db.Exec(ctx, query, id)
+	if err != nil {
+		return err
+	}
+	if tag.RowsAffected() == 0 {
+		return ErrUserNotFound
+	}
+	return nil
+}

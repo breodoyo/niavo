@@ -7,6 +7,7 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 	"golang.org/x/crypto/bcrypt"
 )
+
 type UserService struct {
 	repo *Repository
 }
@@ -23,16 +24,16 @@ func (s *UserService) CreateUser(ctx context.Context, req CreateUserRequest) (Us
 		return User{}, err
 	}
 	user := User{
-		Email: req.Email,
-		FirstName: req.FirstName,
-		LastName: req.LastName,
+		Email:        req.Email,
+		FirstName:    req.FirstName,
+		LastName:     req.LastName,
 		PasswordHash: string(hashedPassword),
 	}
 	created, err := s.repo.CreateUser(ctx, user)
 	if err != nil {
 		var pgErr *pgconn.PgError
 		if errors.As(err, &pgErr) && pgErr.Code == "23505" {
-			return User{}, ErrEmailAreadyExists
+			return User{}, ErrEmailAlreadyExists
 		}
 		return User{}, err
 	}
@@ -43,4 +44,15 @@ func (s *UserService) ListUsers(ctx context.Context) ([]User, error) {
 }
 func (s *UserService) GetUser(ctx context.Context, id string) (User, error) {
 	return s.repo.GetUser(ctx, id)
+}
+func (s *UserService) UpdateUser(ctx context.Context, id string, req UpdateUserRequest) (User, error) {
+	user := User{
+		ID: id,
+		FirstName: req.FirstName,
+		LastName:  req.LastName,
+	}
+	return s.repo.UpdateUser(ctx, id, user)
+}
+func (s *UserService) DeleteUser(ctx context.Context, id string) error {
+	return s.repo.DeleteUser(ctx, id)
 }
