@@ -11,6 +11,7 @@ type Config struct {
 	Port        string
 	Env         string
 	DatabaseURL string
+	JWTSecret string
 }
 
 // Load returns the application configuration
@@ -32,10 +33,16 @@ func Load() Config {
 	}
 	databaseUrl := os.Getenv("DATABASE_URL")
 
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		panic("JWT_SECRET environment variable is required")
+	}
+
 	return Config{
 		AppName:     appName,
 		Env:         env,
 		Port:        ":" + port,
 		DatabaseURL: databaseUrl,
+		JWTSecret: jwtSecret,
 	}
 }

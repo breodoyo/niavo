@@ -27,6 +27,8 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler) *chi.Mux {
 				r.Post("/", userHandler.CreateUser)
 				r.Get("/", userHandler.ListUsers)
 				r.Get("/{id}", userHandler.GetUser)
+				r.Patch("/{id}", userHandler.UpdateUser)
+				r.Delete("/{id}", userHandler.DeleteUser)
 			})
 
 			r.Route("/organizations", func(r chi.Router) {
