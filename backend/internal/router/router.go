@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/breodoyo/niavo/backend/internal/app"
+	"github.com/breodoyo/niavo/backend/internal/auth"
 	"github.com/breodoyo/niavo/backend/internal/middleware"
 	"github.com/breodoyo/niavo/backend/internal/organization"
 	"github.com/breodoyo/niavo/backend/internal/user"
@@ -9,7 +10,7 @@ import (
 )
 
 // New creates and configures the application's router.
-func New(orgHandler *organization.Handler, userHandler *user.Handler) *chi.Mux {
+func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler) *chi.Mux {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
@@ -37,6 +38,9 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler) *chi.Mux {
 				r.Get("/{id}", orgHandler.GetOrganization)
 				r.Patch("/{id}", orgHandler.UpdateOrganization)
 				r.Delete("/{id}", orgHandler.DeleteOrganization)
+			})
+			r.Route("/auth", func(r chi.Router) {
+				r.Post("/login", authHandler.Login)
 			})
 			r.Route("/workflows", func(r chi.Router) {
 

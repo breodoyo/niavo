@@ -4,11 +4,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/breodoyo/niavo/backend/internal/auth"
 	"github.com/breodoyo/niavo/backend/internal/config"
 	"github.com/breodoyo/niavo/backend/internal/database"
 	"github.com/breodoyo/niavo/backend/internal/organization"
 	"github.com/breodoyo/niavo/backend/internal/router"
 	"github.com/breodoyo/niavo/backend/internal/user"
+
 )
 
 func main() {
@@ -30,12 +32,16 @@ func main() {
 	orgService := organization.NewService(orgRepo)
 	orgHandler := organization.NewHandler(orgService)
 
-	userRepo := user.NewRepository(db)
-	UserService := user.NewService(userRepo)
-	userHandler := user.NewHandler(UserService)
+	UserRepo := user.NewRepository(db)
+	UserService := user.NewService(UserRepo)
+	UserHandler := user.NewHandler(UserService)
+
+	
+	authService := auth.NewService(UserService, cfg.JWTSecret)
+	authHandler := auth.NewHandler(authService)
 
 
-	r := router.New(orgHandler, userHandler)
+	r := router.New(orgHandler, UserHandler, authHandler)
 
 	if err := http.ListenAndServe(cfg.Port, r); err != nil {
 		log.Fatal(err)
