@@ -45,13 +45,11 @@ func (s *UserService) ListUsers(ctx context.Context) ([]User, error) {
 func (s *UserService) GetUser(ctx context.Context, id string) (User, error) {
 	return s.repo.GetUser(ctx, id)
 }
+func (s *UserService) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	return s.repo.GetUserByEmail(ctx, email)
+}
 func (s *UserService) UpdateUser(ctx context.Context, id string, req UpdateUserRequest) (User, error) {
-	user := User{
-		ID: id,
-		FirstName: req.FirstName,
-		LastName:  req.LastName,
-	}
-	return s.repo.UpdateUser(ctx, id, user)
+	return s.repo.UpdateUser(ctx, id, req.FirstName, req.LastName)
 }
 func (s *UserService) DeleteUser(ctx context.Context, id string) error {
 	return s.repo.DeleteUser(ctx, id)

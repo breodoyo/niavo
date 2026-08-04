@@ -111,10 +111,32 @@ func (r *Repository) GetUser(
 	}
 	return u, nil
 }
+func (r *Repository) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	query := `
+	SELECT id, email, first_name, last_name, password_hash, created_at, updated_at
+	FROM users
+	WHERE email = $1
+	`
+	var u User
+	err := r.db.QueryRow(ctx, query, email).Scan(
+		&u.ID,
+		&u.Email,
+		&u.FirstName,
+		&u.LastName,
+		&u.PasswordHash,
+		&u.CreatedAt,
+		&u.UpdatedAt,
+	)
+	if err != nil {
+		return User{}, err
+	}
+	return u, nil
+}
 func (r *Repository) UpdateUser(
 	ctx context.Context,
 	id string,
-	u User,
+	firstName string,
+	lastName string,
 ) (User, error) {
 	query := `
 	UPDATE users
@@ -122,18 +144,13 @@ func (r *Repository) UpdateUser(
 	WHERE id = $3
 	RETURNING id, email, first_name, last_name, password_hash, created_at, updated_at
 	`
-	err := r.db.QueryRow(
-		ctx,
-		query,
-		u.Email,
-		u.FirstName,
-		u.LastName,
-		
-	).Scan(
+	var u User
+	err := r.db.QueryRow(ctx, query, firstName, lastName, id).Scan(
 		&u.ID,
 		&u.Email,
 		&u.FirstName,
 		&u.LastName,
+		&u.PasswordHash,
 		&u.CreatedAt,
 		&u.UpdatedAt,
 	)

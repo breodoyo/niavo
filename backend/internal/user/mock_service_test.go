@@ -18,6 +18,13 @@ func (m *MockUserService) GetUser(ctx context.Context, id string) (User, error) 
 		LastName: "Luis",
 	}, nil
 }
+func (m *MockUserService) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	return User{
+		Email: email,
+		FirstName: "Nan",
+		LastName: "Luis",
+	}, nil
+}
 func (m *MockUserService) UpdateUser(ctx context.Context, id string, req UpdateUserRequest) (User, error) {
     return User{
 		ID: id,
