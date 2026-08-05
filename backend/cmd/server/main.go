@@ -41,7 +41,7 @@ func main() {
 	authHandler := auth.NewHandler(authService)
 
 
-	r := router.New(orgHandler, UserHandler, authHandler)
+	r := router.New(orgHandler, UserHandler, authHandler, cfg.JWTSecret)
 
 	if err := http.ListenAndServe(cfg.Port, r); err != nil {
 		log.Fatal(err)

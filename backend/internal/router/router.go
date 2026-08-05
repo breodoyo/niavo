@@ -10,7 +10,7 @@ import (
 )
 
 // New creates and configures the application's router.
-func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler) *chi.Mux {
+func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler, jwtSecret string) *chi.Mux {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
@@ -41,6 +41,26 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 			})
 			r.Route("/auth", func(r chi.Router) {
 				r.Post("/login", authHandler.Login)
+			})
+			//signup
+			r.Route("/users", func(r chi.Router) {
+				r.Post("/", userHandler.CreateUser)
+
+				r.Group(func(r chi.Router) {
+					r.Use(middleware.RequireAuth(jwtSecret))
+					r.Get("/", userHandler.ListUsers)
+					r.Get("/{id}", userHandler.GetUser)
+					r.Patch("/{id}", userHandler.UpdateUser)
+					r.Delete("/{id}", userHandler.DeleteUser)
+				})
+			})
+			r.Route("/organizations", func(r chi.Router) {
+				r.Use(middleware.RequireAuth(jwtSecret))
+				r.Post("/", orgHandler.CreateOrganization)
+				r.Get("/", orgHandler.ListOrganizations)
+				r.Get("/{id}", orgHandler.GetOrganization)
+				r.Patch("/{id}", orgHandler.UpdateOrganization)
+				r.Delete("/{id}", orgHandler.DeleteOrganization)
 			})
 			r.Route("/workflows", func(r chi.Router) {
 
