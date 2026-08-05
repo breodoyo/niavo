@@ -9,40 +9,21 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-// New creates and configures the application's router.
 func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler, jwtSecret string) *chi.Mux {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
-	//Public route
 	router.Get("/", app.HomeHandler)
 
-	//API routes
 	router.Route("/api", func(r chi.Router) {
-
 		r.Route("/v1", func(r chi.Router) {
 
 			r.Get("/", app.HomeHandler)
 
-			r.Route("/users", func(r chi.Router) {
-				r.Post("/", userHandler.CreateUser)
-				r.Get("/", userHandler.ListUsers)
-				r.Get("/{id}", userHandler.GetUser)
-				r.Patch("/{id}", userHandler.UpdateUser)
-				r.Delete("/{id}", userHandler.DeleteUser)
-			})
-
-			r.Route("/organizations", func(r chi.Router) {
-				r.Post("/", orgHandler.CreateOrganization)
-				r.Get("/", orgHandler.ListOrganizations)
-				r.Get("/{id}", orgHandler.GetOrganization)
-				r.Patch("/{id}", orgHandler.UpdateOrganization)
-				r.Delete("/{id}", orgHandler.DeleteOrganization)
-			})
 			r.Route("/auth", func(r chi.Router) {
 				r.Post("/login", authHandler.Login)
 			})
-			//signup
+
 			r.Route("/users", func(r chi.Router) {
 				r.Post("/", userHandler.CreateUser)
 
@@ -54,6 +35,7 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 					r.Delete("/{id}", userHandler.DeleteUser)
 				})
 			})
+
 			r.Route("/organizations", func(r chi.Router) {
 				r.Use(middleware.RequireAuth(jwtSecret))
 				r.Post("/", orgHandler.CreateOrganization)
@@ -62,12 +44,9 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 				r.Patch("/{id}", orgHandler.UpdateOrganization)
 				r.Delete("/{id}", orgHandler.DeleteOrganization)
 			})
-			r.Route("/workflows", func(r chi.Router) {
 
-			})
-			r.Route("/workitems", func(r chi.Router) {
-
-			})
+			r.Route("/workflows", func(r chi.Router) {})
+			r.Route("/workitems", func(r chi.Router) {})
 		})
 	})
 
