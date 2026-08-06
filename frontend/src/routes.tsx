@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Organizations from "./pages/Organizations";
+import Users from "./pages/Users";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export function AppRoutes() {
@@ -26,6 +27,15 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <Organizations />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <Users />
           </ProtectedRoute>
         }
       />
