@@ -1,0 +1,46 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 16px 32px;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.navbar-brand {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-stamp);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.navbar-links a {
+  color: var(--color-paper);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar-links a:hover {
+  color: var(--color-stamp);
+}
+
+.navbar-logout {
+  background: none;
+  border: 1px solid var(--color-paper);
+  color: var(--color-paper);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.navbar-logout:hover {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
