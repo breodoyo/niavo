@@ -68,3 +68,22 @@
   color: #5a6478;
   text-transform: uppercase;
 }
+
+.org-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.org-actions button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: 1px solid #c7ccd6;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.org-delete-btn {
+  color: var(--color-urgent);
+  border-color: var(--color-urgent) !important;
+}

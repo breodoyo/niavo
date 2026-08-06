@@ -24,3 +24,19 @@ export async function createOrganization(
   const response = await apiClient.post<Organization>("/organizations", data);
   return response.data;
 }
+
+export interface UpdateOrganizationRequest {
+  name: string;
+}
+
+export async function updateOrganization(
+  id: string,
+  data: UpdateOrganizationRequest
+): Promise<Organization> {
+  const response = await apiClient.patch<Organization>(`/organizations/${id}`, data);
+  return response.data;
+}
+
+export async function deleteOrganization(id: string): Promise<void> {
+  await apiClient.delete(`/organizations/${id}`);
+}

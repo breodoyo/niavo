@@ -2,6 +2,8 @@ import { useState, useEffect, type FormEvent } from "react";
 import {
   listOrganizations,
   createOrganization,
+  updateOrganization,
+  deleteOrganization,
   type Organization,
 } from "../services/organizations";
 import "./Organizations.css";
@@ -15,6 +17,11 @@ export default function Organizations() {
   const [slug, setSlug] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editError, setEditError] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     loadOrganizations();
@@ -49,6 +56,46 @@ export default function Organizations() {
       setFormError(message);
     } finally {
       setIsSubmitting(false);
+    }
+  }
+
+  function startEditing(org: Organization) {
+    setEditingId(org.id);
+    setEditName(org.name);
+    setEditError(null);
+  }
+
+  function cancelEditing() {
+    setEditingId(null);
+    setEditName("");
+    setEditError(null);
+  }
+
+  async function handleSave(id: string) {
+    setEditError(null);
+    setIsSaving(true);
+    try {
+      await updateOrganization(id, { name: editName });
+      setEditingId(null);
+      await loadOrganizations();
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message || "Couldn't update organization.";
+      setEditError(message);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  async function handleDelete(id: string, orgName: string) {
+    const confirmed = window.confirm(`Delete "${orgName}"? This can't be undone.`);
+    if (!confirmed) return;
+
+    try {
+      await deleteOrganization(id);
+      await loadOrganizations();
+    } catch (err) {
+      alert("Couldn't delete organization.");
     }
   }
 
@@ -87,14 +134,49 @@ export default function Organizations() {
               <th>Name</th>
               <th>Slug</th>
               <th>Created</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {organizations.map((org) => (
               <tr key={org.id}>
-                <td>{org.name}</td>
-                <td>{org.slug}</td>
-                <td>{new Date(org.created_at).toLocaleDateString()}</td>
+                {editingId === org.id ? (
+                  <>
+                    <td colSpan={2}>
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        autoFocus
+                      />
+                      {editError && <div className="org-error">{editError}</div>}
+                    </td>
+                    <td>{new Date(org.created_at).toLocaleDateString()}</td>
+                    <td className="org-actions">
+                      <button onClick={() => handleSave(org.id)} disabled={isSaving}>
+                        {isSaving ? "Saving…" : "Save"}
+                      </button>
+                      <button onClick={cancelEditing} disabled={isSaving}>
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{org.name}</td>
+                    <td>{org.slug}</td>
+                    <td>{new Date(org.created_at).toLocaleDateString()}</td>
+                    <td className="org-actions">
+                      <button onClick={() => startEditing(org)}>Edit</button>
+                      <button
+                        className="org-delete-btn"
+                        onClick={() => handleDelete(org.id, org.name)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
