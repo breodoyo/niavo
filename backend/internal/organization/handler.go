@@ -3,6 +3,7 @@ package organization
 import (
 	"encoding/json"
 	"net/http"
+	"errors"
 
 	"github.com/breodoyo/niavo/backend/internal/common"
 	"github.com/go-chi/chi/v5"
@@ -100,12 +101,11 @@ func (h *Handler) GetOrganization(w http.ResponseWriter, r *http.Request) {
 
 	org, err := h.service.GetOrganization(r.Context(), id)
 	if err != nil {
-		common.WriteError(
-			w,
-			http.StatusNotFound,
-			"not_found",
-			err.Error(),
-		)
+		if errors.Is(err, ErrOrganizationNotFound) {
+			common.WriteError(w, http.StatusNotFound, "not_found", "organization not found")
+			return
+		}
+		common.WriteError(w, http.StatusInternalServerError, "internal_error", err.Error())
 		return
 	}
 
@@ -128,33 +128,22 @@ func (h *Handler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
 	var req UpdateOrganizationRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		common.WriteError(
-			w,
-			http.StatusBadRequest,
-			"invalid_request",
-			"invalid request body",
-		)
+		common.WriteError(w, http.StatusBadRequest, "invalid_request", "invalid request body")
 		return
 	}
 
 	if err := req.Validate(); err != nil {
-		common.WriteError(
-			w,
-			http.StatusBadRequest,
-			"validation_error",
-			err.Error(),
-		)
+		common.WriteError(w, http.StatusBadRequest, "validation_error", err.Error())
 		return
 	}
 
 	updateOrg, err := h.service.UpdateOrganization(r.Context(), id, req.Name)
 	if err != nil {
-		common.WriteError(
-			w,
-			http.StatusBadRequest,
-			"validation_error",
-			err.Error(),
-		)
+		if errors.Is(err, ErrOrganizationNotFound) {
+			common.WriteError(w, http.StatusNotFound, "not_found", "organization not found")
+			return
+		}
+		common.WriteError(w, http.StatusInternalServerError, "internal_error", err.Error())
 		return
 	}
 
@@ -175,12 +164,11 @@ func (h *Handler) DeleteOrganization(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
 	if err := h.service.DeleteOrganization(r.Context(), id); err != nil {
-		common.WriteError(
-			w,
-			http.StatusNotFound,
-			"not_found",
-			"organization not found",
-		)
+		if errors.Is(err, ErrOrganizationNotFound) {
+			common.WriteError(w, http.StatusNotFound, "not_found", "organization not found")
+			return
+		}
+		common.WriteError(w, http.StatusInternalServerError, "internal_error", err.Error())
 		return
 	}
 
