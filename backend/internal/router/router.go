@@ -6,6 +6,7 @@ import (
 	"github.com/breodoyo/niavo/backend/internal/middleware"
 	"github.com/breodoyo/niavo/backend/internal/organization"
 	"github.com/breodoyo/niavo/backend/internal/user"
+	"github.com/go-chi/cors"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -13,6 +14,15 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
+
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"},
+		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
+	
 	router.Get("/", app.HomeHandler)
 
 	router.Route("/api", func(r chi.Router) {

@@ -1,0 +1,18 @@
+:root {
+  --color-paper: #F5F6F2;
+  --color-ink: #1B2A4A;
+  --color-stamp: #C98D2E;
+  --color-urgent: #A63D2F;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
