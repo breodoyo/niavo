@@ -14,7 +14,6 @@ export default function Dashboard() {
     <div style={{ padding: "32px" }}>
       <h1>Dashboard</h1>
       <p>You're signed in.</p>
-      <button onClick={handleLogout}>Log out</button>
     </div>
   );
 }
