@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import Organizations from "./pages/Organizations";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export function AppRoutes() {
@@ -10,6 +11,7 @@ export function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+
       <Route
         path="/dashboard"
         element={
@@ -18,6 +20,16 @@ export function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/organizations"
+        element={
+          <ProtectedRoute>
+            <Organizations />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

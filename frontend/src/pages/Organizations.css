@@ -1,0 +1,70 @@
+.org-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.org-page h1 {
+  margin-bottom: 24px;
+}
+
+.org-create-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.org-create-form input {
+  padding: 10px 12px;
+  border: 1px solid #c7ccd6;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.org-create-form button {
+  padding: 10px 16px;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.org-create-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.org-error {
+  background-color: #fdecea;
+  color: var(--color-urgent);
+  border: 1px solid var(--color-urgent);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.org-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.org-table th,
+.org-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e5eb;
+  font-size: 14px;
+}
+
+.org-table th {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #5a6478;
+  text-transform: uppercase;
+}
