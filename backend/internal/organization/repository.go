@@ -2,7 +2,9 @@ package organization
 
 import (
 	"context"
-
+	"errors"
+	
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -47,6 +49,7 @@ func (r *Repository) ListOrganizations(
 	query := `
 	SELECT id, name, slug, created_at
 	FROM organizations
+	WHERE deleted_at IS NULL
 	ORDER BY created_at DESC
 	`
 
@@ -85,25 +88,25 @@ func (r *Repository) GetOrganization(
 ) (Organization, error) {
 	query := `
 	SELECT id, name, slug, created_at
-    FROM organizations
-	WHERE id = $1;
-`
+	FROM organizations
+	WHERE id = $1 AND deleted_at IS NULL
+	`
 	var org Organization
-	err := r.db.QueryRow(
-		ctx,
-		query,
-		id,
-	).Scan(
+	err := r.db.QueryRow(ctx, query, id).Scan(
 		&org.ID,
 		&org.Name,
 		&org.Slug,
 		&org.CreatedAt,
 	)
 	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return Organization{}, ErrOrganizationNotFound
+		}
 		return Organization{}, err
 	}
 	return org, nil
 }
+
 func (r *Repository) UpdateOrganization(
 	ctx context.Context,
 	id string,
@@ -112,7 +115,7 @@ func (r *Repository) UpdateOrganization(
 	query := `
 	UPDATE organizations
 	SET name = $1, updated_at = now()
-	WHERE id = $2
+	WHERE id = $2 AND deleted_at IS NULL
 	RETURNING id, name, slug, created_at, updated_at
 	`
 	var org Organization
@@ -124,6 +127,9 @@ func (r *Repository) UpdateOrganization(
 		&org.UpdatedAt,
 	)
 	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return Organization{}, ErrOrganizationNotFound
+		}
 		return Organization{}, err
 	}
 	return org, nil
@@ -133,7 +139,7 @@ func (r *Repository) DeleteOrganization(
 	id string,
 ) error {
 	query := `
-	UPDATE organization
+	UPDATE organizations
 	SET deleted_at = now()
 	WHERE id = $1 AND deleted_at IS NULL
 	`
