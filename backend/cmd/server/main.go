@@ -11,6 +11,7 @@ import (
 	"github.com/breodoyo/niavo/backend/internal/router"
 	"github.com/breodoyo/niavo/backend/internal/user"
 	"github.com/breodoyo/niavo/backend/internal/workflow"
+	"github.com/breodoyo/niavo/backend/internal/workitem"
 )
 
 func main() {
@@ -40,10 +41,14 @@ func main() {
 	workflowService := workflow.NewService(workflowRepo)
 	workflowHandler := workflow.NewHandler(workflowService)
 
+	workitemRepo := workitem.NewRepository(db)
+	workitemService := workitem.NewService(workitemRepo)
+	workitemHandler := workitem.NewHandler(workitemService)
+
 	authService := auth.NewService(UserService, cfg.JWTSecret)
 	authHandler := auth.NewHandler(authService)
 
-	r := router.New(orgHandler, UserHandler, authHandler, cfg.JWTSecret, workflowHandler)
+	r := router.New(orgHandler, UserHandler, authHandler, cfg.JWTSecret, workflowHandler, workitemHandler)
 
 	if err := http.ListenAndServe(cfg.Port, r); err != nil {
 		log.Fatal(err)
