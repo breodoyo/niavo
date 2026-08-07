@@ -6,11 +6,12 @@ import (
 	"github.com/breodoyo/niavo/backend/internal/middleware"
 	"github.com/breodoyo/niavo/backend/internal/organization"
 	"github.com/breodoyo/niavo/backend/internal/user"
-	"github.com/go-chi/cors"
+	"github.com/breodoyo/niavo/backend/internal/workflow"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 )
 
-func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler, jwtSecret string) *chi.Mux {
+func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandler *auth.Handler, jwtSecret string, workflowHandler *workflow.Handler) *chi.Mux {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
@@ -22,7 +23,7 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
-	
+
 	router.Get("/", app.HomeHandler)
 
 	router.Route("/api", func(r chi.Router) {
@@ -55,7 +56,14 @@ func New(orgHandler *organization.Handler, userHandler *user.Handler, authHandle
 				r.Delete("/{id}", orgHandler.DeleteOrganization)
 			})
 
-			r.Route("/workflows", func(r chi.Router) {})
+			r.Route("/workflows", func(r chi.Router) {
+				r.Use(middleware.RequireAuth(jwtSecret))
+				r.Post("/", workflowHandler.CreateWorkflow)
+				r.Get("/", workflowHandler.ListWorkflows)
+				r.Get("/{id}", workflowHandler.GetWorkflow)
+				r.Patch("/{id}", workflowHandler.UpdateWorkflow)
+				r.Delete("/{id}", workflowHandler.DeleteWorkflow)
+			})
 			r.Route("/workitems", func(r chi.Router) {})
 		})
 	})
