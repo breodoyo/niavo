@@ -4,6 +4,8 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Organizations from "./pages/Organizations";
 import Users from "./pages/Users";
+import Workflows from "./pages/Workflows";
+import WorkItems from "./pages/WorkItems";
 import NotFound from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
@@ -24,6 +26,8 @@ export function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/organizations" element={<Organizations />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/workflows" element={<Workflows />} />
+        <Route path="/workflows/:workflowId/items" element={<WorkItems />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

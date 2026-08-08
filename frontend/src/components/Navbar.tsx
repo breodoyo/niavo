@@ -18,6 +18,7 @@ export function Navbar() {
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/organizations">Organizations</Link>
         <Link to="/users">Users</Link>
+        <Link to="/workflows">Workflows</Link>
       </div>
       <button className="navbar-logout" onClick={handleLogout}>
         Log out
