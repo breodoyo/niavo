@@ -1,0 +1,68 @@
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-paper);
+  padding: 32px;
+}
+
+.landing-content {
+  max-width: 560px;
+  text-align: center;
+}
+
+.landing-eyebrow {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: var(--color-stamp);
+}
+
+.landing-content h1 {
+  font-size: 40px;
+  margin: 16px 0;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+.landing-content p {
+  color: #5a6478;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.landing-btn-primary,
+.landing-btn-secondary {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.landing-btn-primary {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.landing-btn-secondary {
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+}
+
+.landing-stamps {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

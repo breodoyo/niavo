@@ -7,12 +7,14 @@ import Users from "./pages/Users";
 import Workflows from "./pages/Workflows";
 import WorkItems from "./pages/WorkItems";
 import NotFound from "./pages/NotFound";
+import Landing from "./pages/Landing";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 
 export function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
