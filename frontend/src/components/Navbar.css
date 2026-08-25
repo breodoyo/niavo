@@ -11,8 +11,11 @@
   font-family: "IBM Plex Mono", "Courier New", monospace;
   font-weight: 700;
   letter-spacing: 0.1em;
+  cursor: pointer;
+  text-decoration: none;
   color: var(--color-stamp);
 }
+
 
 .navbar-links {
   display: flex;
