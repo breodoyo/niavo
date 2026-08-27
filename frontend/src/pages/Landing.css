@@ -1,10 +1,11 @@
 .landing-page {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: var(--color-paper);
-  padding: 32px;
+  justify-content: space-between;
+  background-color: bisque;
+  padding: 32px 32px 0;
 }
 
 .landing-content {
@@ -14,7 +15,7 @@
 
 .landing-eyebrow {
   font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-size: 13px;
+  font-size: 20px;
   letter-spacing: 0.15em;
   color: var(--color-stamp);
 }
@@ -65,4 +66,88 @@
   gap: 24px;
   justify-content: center;
   flex-wrap: wrap;
+}
+.landing-footer {
+  background-color: rgb(85, 74, 59);
+  color: var(--color-paper);
+  min-width: 100vw;
+  padding: 50px 50px 0;
+  margin-top: 64px;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+.footer-logo {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-stamp);
+  font-size: 16px;
+}
+
+.footer-tagline {
+  color: #a9b0c3;
+  font-size: 14px;
+  margin: 12px 0 20px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-socials a {
+  color: var(--color-paper);
+  opacity: 0.8;
+}
+
+.footer-socials a:hover {
+  opacity: 1;
+  color: var(--color-stamp);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.footer-heading {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-stamp);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.footer-col a {
+  color: #a9b0c3;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-col a:hover {
+  color: var(--color-paper);
+}
+
+.footer-copyright {
+  max-width: 1000px;
+  margin: 32px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #6b7280;
+  font-size: 13px;
 }
