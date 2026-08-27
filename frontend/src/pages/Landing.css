@@ -17,7 +17,7 @@
   font-family: "IBM Plex Mono", "Courier New", monospace;
   font-size: 20px;
   letter-spacing: 0.15em;
-  color: rgb(36, 35, 35);
+  color: rgb(20, 19, 19); /* darkened from #242323 — was 4.45:1, now clears 4.5:1 AA at 20px */
 }
 
 .landing-content h1 {
@@ -67,10 +67,11 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .landing-footer {
   background-color: rgb(85, 74, 59);
   color: var(--color-paper);
-  min-width: 100vw;
+  width: 100%; /* was 100vw — could force horizontal scroll alongside a vertical scrollbar */
   padding: 50px 50px 0;
   margin-top: 64px;
 }
@@ -97,7 +98,7 @@
 }
 
 .footer-tagline {
-  color: #a9b0c3;
+  color: #c4c9d6; /* lightened from #a9b0c3 — was 4.0:1, now clears 4.5:1 AA */
   font-size: 14px;
   margin: 12px 0 20px;
 }
@@ -109,11 +110,10 @@
 
 .footer-socials a {
   color: var(--color-paper);
-  opacity: 0.8;
+  /* removed opacity: 0.8 — opacity multiplies against the bg and drifts if it changes */
 }
 
 .footer-socials a:hover {
-  opacity: 1;
   color: var(--color-stamp);
 }
 
@@ -134,7 +134,7 @@
 }
 
 .footer-col a {
-  color: #a9b0c3;
+  color: #c4c9d6; /* lightened from #a9b0c3 — same fix as .footer-tagline */
   text-decoration: none;
   font-size: 14px;
 }
@@ -148,6 +148,6 @@
   margin: 32px auto 0;
   padding-top: 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #6b7280;
+  color: #9ca3af; /* was #6b7280 at 1.79:1 — nearly invisible, now readable */
   font-size: 13px;
 }
