@@ -8,6 +8,7 @@ import Workflows from "./pages/Workflows";
 import WorkItems from "./pages/WorkItems";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
+import About from "./pages/About";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 
@@ -30,6 +31,7 @@ export function AppRoutes() {
         <Route path="/users" element={<Users />} />
         <Route path="/workflows" element={<Workflows />} />
         <Route path="/workflows/:workflowId/items" element={<WorkItems />} />
+        <Route path="/about" element={<About />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: bisque;
+  background-color: rgb(146, 135, 121);
   padding: 32px 32px 0;
 }
 
@@ -17,18 +17,18 @@
   font-family: "IBM Plex Mono", "Courier New", monospace;
   font-size: 20px;
   letter-spacing: 0.15em;
-  color: var(--color-stamp);
+  color: rgb(36, 35, 35);
 }
 
 .landing-content h1 {
   font-size: 40px;
   margin: 16px 0;
-  color: var(--color-ink);
+  color: black;
   line-height: 1.2;
 }
 
 .landing-content p {
-  color: #5a6478;
+  color: #0f0f0f;
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 32px;

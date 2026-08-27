@@ -68,12 +68,12 @@ export default function Landing() {
 
           <div className="footer-col">
             <span className="footer-heading">Company</span>
-            <a href="https://github.com/breodoyo/niavo" target="_blank" rel="noopener noreferrer">About</a>
+            <a href="/about">About</a>
             <a href="#">Contact</a>
           </div>
         </div>
 
-        <p className="footer-copyright">© 2026 Niavo. Built by Brender Odoyo.</p>
+        <p className="footer-copyright">© 2026 Niavo.</p>
       </footer>
     </div>
   );
