@@ -4,104 +4,218 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(146, 135, 121);
+
+  background-color: #f4f1ea;
+  color: #171717;
+
   padding: 32px 32px 0;
 }
 
+
+/* =========================
+   LANDING CONTENT
+   ========================= */
+
 .landing-content {
-  max-width: 560px;
+  max-width: 680px;
   text-align: center;
+  padding-top: 80px;
 }
 
 .landing-eyebrow {
   font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-size: 20px;
-  letter-spacing: 0.15em;
-  color: rgb(20, 19, 19); /* darkened from #242323 — was 4.45:1, now clears 4.5:1 AA at 20px */
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: #b85c38;
 }
 
 .landing-content h1 {
-  font-size: 40px;
-  margin: 16px 0;
-  color: black;
-  line-height: 1.2;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+
+  margin: 18px 0;
+
+  color: #111111;
 }
 
 .landing-content p {
-  color: #0f0f0f;
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 32px;
+  max-width: 580px;
+  margin: 0 auto 36px;
+
+  color: #5f5b55;
+
+  font-size: 17px;
+  line-height: 1.7;
 }
+
+
+/* =========================
+   ACTIONS
+   ========================= */
 
 .landing-actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
-  margin-bottom: 48px;
+  flex-wrap: wrap;
+
+  margin-bottom: 52px;
 }
 
 .landing-btn-primary,
 .landing-btn-secondary {
-  padding: 12px 24px;
-  border-radius: 4px;
-  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 13px 26px;
+
+  border-radius: 2px;
+
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.01em;
+
   text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
+
+/* Primary */
+
 .landing-btn-primary {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: #111111;
+  color: #f4f1ea;
+  border: 1px solid #111111;
 }
+
+.landing-btn-primary:hover {
+  background-color: #b85c38;
+  border-color: #b85c38;
+  transform: translateY(-2px);
+}
+
+
+/* Secondary */
 
 .landing-btn-secondary {
   background-color: transparent;
-  color: var(--color-ink);
-  border: 1px solid var(--color-ink);
+  color: #111111;
+  border: 1px solid #8d8982;
 }
+
+.landing-btn-secondary:hover {
+  background-color: #e7e2d8;
+  border-color: #111111;
+}
+
+
+/* =========================
+   STAMPS
+   ========================= */
 
 .landing-stamps {
   display: flex;
-  gap: 24px;
+  gap: 12px;
+
   justify-content: center;
   flex-wrap: wrap;
+
+  margin-bottom: 60px;
 }
 
+.landing-stamp {
+  border: 1px solid #c9c3b8;
+
+  padding: 8px 12px;
+
+  color: #5f5b55;
+
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+
+  background-color: transparent;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
 .landing-footer {
-  background-color: rgb(85, 74, 59);
-  color: var(--color-paper);
-  width: 100%; /* was 100vw — could force horizontal scroll alongside a vertical scrollbar */
-  padding: 50px 50px 0;
+  background-color: #171717;
+  color: #f4f1ea;
+
+  width: 100%;
+
+  padding: 56px 50px 0;
+
   margin-top: 64px;
 }
+
+
+/* Footer layout */
 
 .footer-top {
   display: flex;
   flex-wrap: wrap;
+
   gap: 48px;
-  max-width: 1000px;
+
+  max-width: 1100px;
+
   margin: 0 auto;
 }
 
+
+/* =========================
+   FOOTER BRAND
+   ========================= */
+
 .footer-brand {
-  flex: 1 1 220px;
+  flex: 1 1 260px;
   min-width: 220px;
 }
 
 .footer-logo {
   font-family: "IBM Plex Mono", "Courier New", monospace;
+
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--color-stamp);
-  font-size: 16px;
+
+  letter-spacing: 0.12em;
+
+  color: #b85c38;
+
+  font-size: 17px;
 }
 
 .footer-tagline {
-  color: #c4c9d6; /* lightened from #a9b0c3 — was 4.0:1, now clears 4.5:1 AA */
+  color: #aaa59c;
+
   font-size: 14px;
+
+  line-height: 1.6;
+
   margin: 12px 0 20px;
+
+  max-width: 280px;
 }
+
+
+/* =========================
+   SOCIALS
+   ========================= */
 
 .footer-socials {
   display: flex;
@@ -109,45 +223,104 @@
 }
 
 .footer-socials a {
-  color: var(--color-paper);
-  /* removed opacity: 0.8 — opacity multiplies against the bg and drifts if it changes */
+  color: #f4f1ea;
+
+  transition: color 0.2s ease;
 }
 
 .footer-socials a:hover {
-  color: var(--color-stamp);
+  color: #b85c38;
 }
+
+
 
 .footer-col {
   display: flex;
   flex-direction: column;
+
   gap: 10px;
+
   min-width: 140px;
 }
 
 .footer-heading {
   font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--color-stamp);
+
+  font-size: 11px;
+
+  letter-spacing: 0.1em;
+
+  color: #b85c38;
+
   text-transform: uppercase;
+
   margin-bottom: 5px;
 }
 
 .footer-col a {
-  color: #c4c9d6; /* lightened from #a9b0c3 — same fix as .footer-tagline */
+  color: #aaa59c;
+
   text-decoration: none;
+
   font-size: 14px;
+
+  transition: color 0.2s ease;
 }
 
 .footer-col a:hover {
-  color: var(--color-paper);
+  color: #f4f1ea;
 }
 
+
+
 .footer-copyright {
-  max-width: 1000px;
-  margin: 32px auto 0;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #9ca3af; /* was #6b7280 at 1.79:1 — nearly invisible, now readable */
-  font-size: 13px;
+  max-width: 1100px;
+
+  margin: 36px auto 0;
+
+  padding: 22px 0;
+
+  border-top: 1px solid rgba(244, 241, 234, 0.12);
+
+  color: #77736d;
+
+  font-size: 12px;
+}
+
+
+
+@media (max-width: 640px) {
+  .landing-page {
+    padding: 24px 20px 0;
+  }
+
+  .landing-content {
+    padding-top: 50px;
+  }
+
+  .landing-content h1 {
+    font-size: 42px;
+  }
+
+  .landing-content p {
+    font-size: 15px;
+  }
+
+  .landing-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .landing-btn-primary,
+  .landing-btn-secondary {
+    width: 100%;
+  }
+
+  .landing-footer {
+    padding: 44px 24px 0;
+  }
+
+  .footer-top {
+    gap: 36px;
+  }
 }

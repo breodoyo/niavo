@@ -1,15 +1,21 @@
 .login-page {
   display: flex;
   min-height: 100vh;
+  background-color: #f7f3ea;
+  color: #171a18;
 }
 
-/* Left panel: ticket stack illustration */
+
+/* LEFT SIDE */
+
 .login-panel {
   flex: 1;
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-ink);
+
+  background-color: #183a34;
+
   position: relative;
   overflow: hidden;
 }
@@ -20,151 +26,222 @@
   }
 }
 
-.ticket-stack {
-  position: relative;
-  width: 280px;
+
+/* Decorative frame */
+
+.login-panel::before {
+  content: "";
+  position: absolute;
+
+  inset: 40px;
+
+  border: 1px solid rgba(247, 243, 234, 0.18);
+
+  pointer-events: none;
 }
 
+
+/* TICKETS */
+
 .ticket {
-  background-color: var(--color-paper);
-  border-radius: 4px;
+  background-color: #f7f3ea;
+
+  border: 1px solid #ded8cc;
+
+  border-radius: 2px;
+
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25);
+
   position: absolute;
+
   width: 100%;
   height: 160px;
 }
 
-.ticket-1 {
-  top: -60px;
-  transform: rotate(-4deg);
-}
 
-.ticket-2 {
-  top: 20px;
-  transform: rotate(2deg);
-  z-index: 2;
-}
-
-.ticket-3 {
-  top: 100px;
-  transform: rotate(-1deg);
-  z-index: 3;
-}
-
-.stamp {
-  display: inline-block;
-  font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  padding: 6px 14px;
-  border: 2px solid currentColor;
-  border-radius: 2px;
-  transform: rotate(-6deg);
-}
+/* STAMPS */
 
 .stamp-received {
-  color: var(--color-stamp);
+  color: #68665f;
 }
 
 .stamp-progress {
-  color: var(--color-ink);
+  color: #c45a3c;
 }
 
 .stamp-done {
-  color: var(--color-urgent);
+  color: #286052;
 }
 
-/* Right panel: the form */
+
+/* FORM SIDE */
+
 .login-form-panel {
   flex: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 32px;
+
+  background-color: #f7f3ea;
 }
+
 
 .login-form {
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
+
   display: flex;
   flex-direction: column;
-  gap: 16px;
+
+  gap: 18px;
 }
 
-.login-header {
-  margin-bottom: 8px;
-}
+
+/* HEADER */
 
 .login-eyebrow {
   font-family: "IBM Plex Mono", "Courier New", monospace;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  color: var(--color-stamp);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  color: #c45a3c;
+
+  text-transform: uppercase;
 }
+
 
 .login-header h1 {
-  font-size: 28px;
-  margin: 8px 0 4px;
+  font-size: 34px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.03em;
+
+  line-height: 1.1;
+
+  margin: 10px 0 6px;
+
+  color: #171a18;
 }
+
 
 .login-header p {
-  color: #5a6478;
+  color: #68665f;
+
   font-size: 14px;
+
+  line-height: 1.6;
 }
 
-.login-error {
-  background-color: #fdecea;
-  color: var(--color-urgent);
-  border: 1px solid var(--color-urgent);
-  border-radius: 4px;
-  padding: 10px 14px;
-  font-size: 14px;
-}
+
+/* INPUTS */
 
 .login-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 14px;
+
+  gap: 7px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #292b28;
 }
 
+
 .login-field input {
-  padding: 10px 12px;
-  border: 1px solid #c7ccd6;
-  border-radius: 4px;
+  padding: 12px 13px;
+
+  background-color: #fffdf8;
+
+  color: #171a18;
+
+  border: 1px solid #bbb7ae;
+
+  border-radius: 2px;
+
   font-size: 15px;
 }
 
+
 .login-field input:focus {
-  outline: 2px solid var(--color-stamp);
-  outline-offset: 1px;
+  outline: none;
+
+  border-color: #c45a3c;
+
+  box-shadow:
+    0 0 0 2px rgba(196, 90, 60, 0.12);
 }
+
+
+/* LOGIN BUTTON */
 
 .login-form button {
   margin-top: 8px;
-  padding: 12px;
-  background-color: var(--color-ink);
-  color: var(--color-paper);
-  border: none;
-  border-radius: 4px;
-  font-size: 15px;
+
+  padding: 13px 16px;
+
+  background-color: #183a34;
+
+  color: #f7f3ea;
+
+  border: 1px solid #183a34;
+
+  border-radius: 2px;
+
+  font-size: 14px;
+
   font-weight: 600;
+
   cursor: pointer;
+
+  transition: all 0.2s ease;
 }
 
-.login-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+
+.login-form button:hover:not(:disabled) {
+  background-color: #c45a3c;
+
+  border-color: #c45a3c;
+
+  transform: translateY(-1px);
 }
+
+
+/* FOOTER */
 
 .login-footer {
-  font-size: 14px;
+  font-size: 13px;
+
   text-align: center;
-  margin-top: 8px;
+
+  margin-top: 10px;
+
+  color: #68665f;
 }
 
+
 .login-footer a {
-  color: var(--color-stamp);
+  color: #c45a3c;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+
+.login-footer a:hover {
+  color: #183a34;
+
+  text-decoration: underline;
 }
