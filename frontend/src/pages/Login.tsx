@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { isAxiosError } from "axios";
 import { useAuth } from "../hooks/useAuth";
 import "./Login.css";
 
@@ -23,7 +24,13 @@ export default function Login() {
       await login({ email, password });
       navigate(from, { replace: true });
     } catch (err) {
-      setError("Incorrect email or password.");
+      if (isAxiosError(err) && !err.response) {
+        setError("Can't reach the server. Please check your connection and try again.");
+      } else if (isAxiosError(err) && err.response?.status === 401) {
+        setError("Incorrect email or password.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }

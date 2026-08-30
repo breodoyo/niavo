@@ -17,8 +17,8 @@
 
 .org-create-form input {
   padding: 10px 12px;
-  border: 1px solid #c7ccd6;
-  border-radius: 4px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
   font-size: 14px;
 }
 
@@ -27,7 +27,7 @@
   background-color: var(--color-ink);
   color: var(--color-paper);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   font-weight: 600;
   cursor: pointer;
 }
@@ -38,10 +38,10 @@
 }
 
 .org-error {
-  background-color: #fdecea;
-  color: var(--color-urgent);
-  border: 1px solid var(--color-urgent);
-  border-radius: 4px;
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
   padding: 10px 14px;
   font-size: 14px;
   margin-bottom: 12px;
@@ -57,15 +57,15 @@
 .org-table td {
   text-align: left;
   padding: 10px 12px;
-  border-bottom: 1px solid #e2e5eb;
+  border-bottom: 1px solid var(--color-border);
   font-size: 14px;
 }
 
 .org-table th {
-  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.05em;
-  color: #5a6478;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
 }
 
@@ -77,9 +77,9 @@
 .org-actions button {
   padding: 6px 12px;
   font-size: 13px;
-  border: 1px solid #c7ccd6;
-  border-radius: 4px;
-  background-color: white;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
   cursor: pointer;
 }
 

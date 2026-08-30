@@ -8,12 +8,12 @@
 }
 
 .navbar-brand {
-  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   letter-spacing: 0.1em;
   cursor: pointer;
   text-decoration: none;
-  color: var(--color-stamp);
+  color: var(--color-accent-on-dark);
 }
 
 
@@ -30,7 +30,7 @@
 }
 
 .navbar-links a:hover {
-  color: var(--color-stamp);
+  color: var(--color-accent-on-dark);
 }
 
 .navbar-logout {
