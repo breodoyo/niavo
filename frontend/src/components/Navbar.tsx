@@ -13,7 +13,7 @@ export function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/dashboard" classNaame="navbar-brand"> NIAVO </Link>
+      <Link to="/dashboard" className="navbar-brand"> NIAVO </Link>
       <div className="navbar-links">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/organizations">Organizations</Link>

@@ -54,16 +54,16 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f5f7fb", padding: "32px" }}>
+    <div style={{ minHeight: "100vh", background: "var(--color-paper)", padding: "32px" }}>
       <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ margin: 0, fontSize: "32px", color: "#172b4d" }}>Dashboard</h1>
-        <p style={{ marginTop: "8px", color: "#6b7280", fontSize: "16px" }}>
+        <h1 style={{ margin: 0, fontSize: "32px", color: "var(--color-text)" }}>Dashboard</h1>
+        <p style={{ marginTop: "8px", color: "var(--color-text-secondary)", fontSize: "16px" }}>
           Welcome back. Here's what's happening in Niavo.
         </p>
       </div>
 
       {loadError && (
-        <div style={{ marginBottom: "24px", color: "#b91c1c" }}>{loadError}</div>
+        <div style={{ marginBottom: "24px", color: "var(--color-error)" }}>{loadError}</div>
       )}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", marginBottom: "32px" }}>
@@ -74,19 +74,19 @@ export default function Dashboard() {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px" }}>
-        <div style={{ background: "#ffffff", borderRadius: "12px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+        <div style={{ background: "var(--color-surface)", borderRadius: "var(--radius-lg)", padding: "24px", boxShadow: "var(--shadow-sm)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
             <div>
-              <h2 style={{ margin: 0, color: "#172b4d", fontSize: "20px" }}>Work Items</h2>
-              <p style={{ margin: "6px 0 0", color: "#6b7280" }}>Overview of your current workload</p>
+              <h2 style={{ margin: 0, color: "var(--color-text)", fontSize: "20px" }}>Work Items</h2>
+              <p style={{ margin: "6px 0 0", color: "var(--color-text-secondary)" }}>Overview of your current workload</p>
             </div>
             <button onClick={() => navigate("/workflows")} style={secondaryButton}>View workflows</button>
           </div>
 
           {isLoading ? (
-            <p style={{ color: "#6b7280" }}>Loading…</p>
+            <p style={{ color: "var(--color-text-secondary)" }}>Loading…</p>
           ) : total === 0 ? (
-            <p style={{ color: "#6b7280" }}>No work items yet.</p>
+            <p style={{ color: "var(--color-text-secondary)" }}>No work items yet.</p>
           ) : (
             <>
               <StatusRow label="Received" value={received} percentage={pct(received)} />
@@ -96,9 +96,9 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div style={{ background: "#ffffff", borderRadius: "12px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
-          <h2 style={{ margin: "0 0 8px", color: "#172b4d", fontSize: "20px" }}>Quick Actions</h2>
-          <p style={{ margin: "0 0 24px", color: "#6b7280" }}>Get things done quickly.</p>
+        <div style={{ background: "var(--color-surface)", borderRadius: "var(--radius-lg)", padding: "24px", boxShadow: "var(--shadow-sm)" }}>
+          <h2 style={{ margin: "0 0 8px", color: "var(--color-text)", fontSize: "20px" }}>Quick Actions</h2>
+          <p style={{ margin: "0 0 24px", color: "var(--color-text-secondary)" }}>Get things done quickly.</p>
           <button onClick={() => navigate("/organizations")} style={primaryButton}>+ Create Organization</button>
           <button onClick={() => navigate("/workflows")} style={actionButton}>+ Create Workflow</button>
           <button onClick={() => navigate("/users")} style={actionButton}>+ Add User</button>
@@ -110,14 +110,14 @@ export default function Dashboard() {
 
 function StatCard({ title, value, description, icon }: { title: string; value: string; description: string; icon: string }) {
   return (
-    <div style={{ background: "#ffffff", borderRadius: "12px", padding: "22px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+    <div style={{ background: "var(--color-surface)", borderRadius: "var(--radius-lg)", padding: "22px", boxShadow: "var(--shadow-sm)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <p style={{ margin: 0, color: "#6b7280", fontSize: "14px" }}>{title}</p>
-          <h2 style={{ margin: "8px 0", fontSize: "30px", color: "#172b4d" }}>{value}</h2>
-          <p style={{ margin: 0, color: "#9ca3af", fontSize: "13px" }}>{description}</p>
+          <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: "14px" }}>{title}</p>
+          <h2 style={{ margin: "8px 0", fontSize: "30px", color: "var(--color-text)" }}>{value}</h2>
+          <p style={{ margin: 0, color: "var(--color-text-muted)", fontSize: "13px" }}>{description}</p>
         </div>
-        <div style={{ fontSize: "28px", background: "#f0f4ff", borderRadius: "10px", padding: "10px" }}>{icon}</div>
+        <div style={{ fontSize: "28px", background: "var(--color-surface-muted)", borderRadius: "var(--radius-md)", padding: "10px" }}>{icon}</div>
       </div>
     </div>
   );
@@ -127,16 +127,16 @@ function StatusRow({ label, value, percentage }: { label: string; value: number;
   return (
     <div style={{ marginBottom: "20px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-        <span style={{ color: "#374151", fontSize: "14px" }}>{label}</span>
-        <span style={{ color: "#6b7280", fontSize: "14px" }}>{value}</span>
+        <span style={{ color: "var(--color-text)", fontSize: "14px" }}>{label}</span>
+        <span style={{ color: "var(--color-text-secondary)", fontSize: "14px" }}>{value}</span>
       </div>
-      <div style={{ height: "8px", background: "#e5e7eb", borderRadius: "10px", overflow: "hidden" }}>
-        <div style={{ width: `${percentage}%`, height: "100%", background: "#172b4d", borderRadius: "10px" }} />
+      <div style={{ height: "8px", background: "var(--color-surface-muted)", borderRadius: "10px", overflow: "hidden" }}>
+        <div style={{ width: `${percentage}%`, height: "100%", background: "var(--color-ink)", borderRadius: "10px" }} />
       </div>
     </div>
   );
 }
 
-const primaryButton: React.CSSProperties = { width: "100%", padding: "12px 16px", marginBottom: "12px", border: "none", borderRadius: "7px", background: "#172b4d", color: "#ffffff", cursor: "pointer", fontWeight: 600 };
-const secondaryButton: React.CSSProperties = { padding: "9px 14px", border: "1px solid #d1d5db", borderRadius: "7px", background: "#ffffff", color: "#172b4d", cursor: "pointer" };
-const actionButton: React.CSSProperties = { width: "100%", padding: "12px 16px", marginBottom: "12px", border: "1px solid #d1d5db", borderRadius: "7px", background: "#ffffff", color: "#172b4d", cursor: "pointer", fontWeight: 500 };
+const primaryButton: React.CSSProperties = { width: "100%", padding: "12px 16px", marginBottom: "12px", border: "none", borderRadius: "var(--radius-md)", background: "var(--color-ink)", color: "var(--color-paper)", cursor: "pointer", fontWeight: 600 };
+const secondaryButton: React.CSSProperties = { padding: "9px 14px", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", background: "var(--color-surface)", color: "var(--color-text)", cursor: "pointer" };
+const actionButton: React.CSSProperties = { width: "100%", padding: "12px 16px", marginBottom: "12px", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", background: "var(--color-surface)", color: "var(--color-text)", cursor: "pointer", fontWeight: 500 };
